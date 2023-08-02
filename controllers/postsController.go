@@ -1,13 +1,13 @@
 package controllers
 
 import (
-	"example/library_system/main/initializers"
-	"example/library_system/main/models"
+	"example/library_system/initializers"
+	"example/library_system/models"
 
 	"github.com/gin-gonic/gin"
 )
 
-func PostsCreate(c *gin.Context) {
+func CreatePost(c *gin.Context) {
 	// Get data off req body
 	var body struct {
 		Body  string
@@ -15,6 +15,7 @@ func PostsCreate(c *gin.Context) {
 	}
 
 	c.Bind(&body)
+
 	// Create a post
 	post := models.Post{Title: body.Title, Body: body.Body}
 
@@ -31,7 +32,7 @@ func PostsCreate(c *gin.Context) {
 	})
 }
 
-func PostsIndex(c *gin.Context) {
+func GetPosts(c *gin.Context) {
 	// Get the posts
 	var posts []models.Post
 	initializers.DB.Find(&posts)
@@ -42,22 +43,22 @@ func PostsIndex(c *gin.Context) {
 	})
 }
 
-func PostsShow(c *gin.Context) {
-	// Get id off url
+func GetPost(c *gin.Context) {
+	// Get id
 	id := c.Param("id")
 
-	// Get the posts
+	// Get the post
 	var post models.Post
 	initializers.DB.First(&post, id)
 
 	// Respond with them
 	c.JSON(200, gin.H{
-		"posts": post,
+		"post": post,
 	})
 }
 
-func PostUpdate(c *gin.Context) {
-	// Get id off url
+func UpdatePost(c *gin.Context) {
+	// Get id
 	id := c.Param("id")
 
 	// Get the data off req body
@@ -80,13 +81,13 @@ func PostUpdate(c *gin.Context) {
 
 	// Respond with them
 	c.JSON(200, gin.H{
-		"posts": post,
+		"post": post,
 	})
 
 }
 
-func PostDelete(c *gin.Context) {
-	// Get id off url
+func DeletePost(c *gin.Context) {
+	// Get id
 	id := c.Param("id")
 
 	// Get deleting post
