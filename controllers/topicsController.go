@@ -14,7 +14,12 @@ func CreateTopic(c *gin.Context) {
 		Owner string
 	}
 
-	c.Bind(&body)
+	if c.Bind(&body) != nil {
+		c.JSON(400, gin.H{
+			"error": "Failed to read body",
+		})
+		return
+	}
 
 	// Create a topic
 	topic := models.Topic{
@@ -70,7 +75,12 @@ func UpdateTopic(c *gin.Context) {
 		Owner string
 	}
 
-	c.Bind(&body)
+	if c.Bind(&body) != nil {
+		c.JSON(400, gin.H{
+			"error": "Failed to read body",
+		})
+		return
+	}
 
 	// Find the topic were updating
 	var topic models.Topic

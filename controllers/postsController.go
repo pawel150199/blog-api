@@ -14,7 +14,12 @@ func CreatePost(c *gin.Context) {
 		Title string
 	}
 
-	c.Bind(&body)
+	if c.Bind(&body) != nil {
+		c.JSON(400, gin.H{
+			"error": "Failed to read body",
+		})
+		return
+	}
 
 	// Create a post
 	post := models.Post{Title: body.Title, Body: body.Body}
@@ -67,7 +72,12 @@ func UpdatePost(c *gin.Context) {
 		Body  string
 	}
 
-	c.Bind(&body)
+	if c.Bind(&body) != nil {
+		c.JSON(400, gin.H{
+			"error": "Failed to read body",
+		})
+		return
+	}
 
 	// Find the post were updating
 	var post models.Post

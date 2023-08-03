@@ -15,6 +15,9 @@ func init() {
 func main() {
 	router := gin.Default()
 
+	// Login
+	router.POST("/login", controllers.Login)
+
 	// Posts
 	router.POST("/posts", controllers.CreatePost)
 	router.GET("/posts", controllers.GetPosts)
@@ -28,6 +31,13 @@ func main() {
 	router.GET("/users/:id", controllers.GetUser)
 	router.PUT("/users/:id", controllers.UpdateUser)
 	router.DELETE("/users/:id", controllers.DeleteUser)
+
+	// Topics
+	router.POST("/topics", controllers.CreateTopic)
+	router.GET("/topics", controllers.GetTopics)
+	router.GET("/topics/:id", controllers.GetTopic)
+	router.PUT("/topics/:id", controllers.UpdateTopic)
+	router.DELETE("/topics/:id", controllers.DeleteTopic)
 
 	router.Run()
 }
