@@ -12,6 +12,13 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
+func GetMe(c *gin.Context) {
+	user, _ := c.Get("user")
+	c.JSON(200, gin.H{
+		"user": user,
+	})
+}
+
 func Login(c *gin.Context) {
 	// Get the email and pass off req body
 	var body struct {
