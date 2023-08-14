@@ -21,7 +21,7 @@ jobs:
         username: ${{ env.DOCKER_USERNAME }}
         password: ${{ env.DOCKER_PASSWORD }}
       
-    - name: Build and tag Docker frontend images
+    - name: Build and tag Docker images
       uses: docker/build-push-action@v2
       with:
         context: .
