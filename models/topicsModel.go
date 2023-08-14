@@ -6,4 +6,5 @@ type Topic struct {
 	gorm.Model
 	Name  string
 	Owner string
+	Posts []Post
 }
