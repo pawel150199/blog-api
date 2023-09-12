@@ -1,9 +1,9 @@
 package main
 
 import (
-	"example/library_system/controllers"
-	"example/library_system/initializers"
-	"example/library_system/middleware"
+	"example/blog/controllers"
+	"example/blog/initializers"
+	"example/blog/middleware"
 
 	"github.com/gin-gonic/gin"
 )

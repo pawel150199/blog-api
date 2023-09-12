@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"example/library_system/initializers"
-	"example/library_system/models"
+	"example/blog/initializers"
+	"example/blog/models"
 
 	"github.com/gin-gonic/gin"
 )
@@ -106,17 +106,19 @@ func DeleteTopic(c *gin.Context) {
 	var topic models.Topic
 	initializers.DB.First(&topic, id)
 
-	if topic == (models.Topic{}) {
-		c.JSON(404, gin.H{
-			"message": "Topic does not exist.",
-		})
-	} else {
-		// Delete topic
-		initializers.DB.Delete(&models.Post{}, id)
+	/*
+		if topic == (models.Topic{}) {
+			c.JSON(404, gin.H{
+				"message": "Topic does not exist.",
+			})
+		}
+	*/
 
-		// Respond
-		c.JSON(200, gin.H{
-			"topic": topic,
-		})
-	}
+	// Delete topic
+	initializers.DB.Delete(&models.Post{}, id)
+
+	// Respond
+	c.JSON(200, gin.H{
+		"topic": topic,
+	})
 }

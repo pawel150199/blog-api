@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"example/library_system/initializers"
-	"example/library_system/models"
+	"example/blog/initializers"
+	"example/blog/models"
 	"fmt"
 	"net/http"
 	"os"

@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"example/library_system/initializers"
-	"example/library_system/models"
+	"example/blog/initializers"
+	"example/blog/models"
 
 	"github.com/gin-gonic/gin"
 )

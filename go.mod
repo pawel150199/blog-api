@@ -1,4 +1,4 @@
-module example/library_system
+module example/blog
 
 go 1.18
 

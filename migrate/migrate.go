@@ -1,8 +1,8 @@
 package main
 
 import (
-	"example/library_system/main/initializers"
-	"example/library_system/main/models"
+	"example/blog/main/initializers"
+	"example/blog/main/models"
 )
 
 func init() {

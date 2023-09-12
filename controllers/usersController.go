@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"example/library_system/helpers"
-	"example/library_system/initializers"
-	"example/library_system/models"
+	"example/blog/helpers"
+	"example/blog/initializers"
+	"example/blog/models"
 	"net/http"
 	"os"
 	"time"
@@ -191,18 +191,19 @@ func DeleteUser(c *gin.Context) {
 	var user models.User
 	initializers.DB.First(&user, id)
 
-	if user == (models.User{}) {
-		c.JSON(404, gin.H{
-			"message": "User does not exist.",
-		})
-	} else {
-		// Delete user
-		initializers.DB.Delete(&models.Post{}, id)
+	/*
+		if user == (models.User{}) {
+			c.JSON(404, gin.H{
+				"message": "User does not exist.",
+			})
+		}
+	*/
 
-		// Respond
-		c.JSON(200, gin.H{
-			"user": user,
-		})
-	}
+	// Delete user
+	initializers.DB.Delete(&models.Post{}, id)
 
+	// Respond
+	c.JSON(200, gin.H{
+		"user": user,
+	})
 }
