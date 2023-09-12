@@ -4,12 +4,15 @@ import (
 	"example/blog/controllers"
 	"example/blog/initializers"
 	"example/blog/middleware"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
 
 func init() {
-	initializers.LoadEnvVariables()
+	if os.Getenv("DEPLOYMENT_TYPE") != "k8s" {
+		initializers.LoadEnvVariables()
+	}
 	initializers.ConnectToDB()
 }
 
