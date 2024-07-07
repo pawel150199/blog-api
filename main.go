@@ -1,12 +1,13 @@
 package main
 
 import (
-	"example/blog/controllers"
+	_ "example/blog/docs"
 	"example/blog/initializers"
-	"example/blog/middleware"
+	"example/blog/router"
+	"net/http"
 	"os"
 
-	"github.com/gin-gonic/gin"
+	"github.com/rs/zerolog/log"
 )
 
 func init() {
@@ -16,33 +17,28 @@ func init() {
 	initializers.ConnectToDB()
 }
 
+// @title 	Blog Service API
+// @version	1.0
+// @description A Blog Service API in Go using Gin framework
+
+// @host 	localhost:3000
+// @BasePath /
+// @schemes http
+
+// @securityDefinitions.apiKey JWT
+// @in header
+// @name token
 func main() {
-	router := gin.Default()
+	log.Info().Msg("Started Server!")
 
-	// Login
-	router.POST("/login", controllers.Login)
+	router := router.NewRouter()
+	server := &http.Server{
+		Addr:    ":3000",
+		Handler: router,
+	}
+	err := server.ListenAndServe()
 
-	// Posts
-	router.POST("/posts", middleware.RequireAuth, controllers.CreatePost)
-	router.GET("/posts", controllers.GetPosts)
-	router.GET("/posts/:id", controllers.GetPost)
-	router.PUT("/posts/:id", middleware.RequireAuth, controllers.UpdatePost)
-	router.DELETE("/posts/:id", middleware.RequireAuth, controllers.DeletePost)
-
-	// Users
-	router.POST("/users", controllers.CreateUser)
-	router.GET("/me", middleware.RequireAuth, controllers.GetMe)
-	router.GET("/users", controllers.GetUsers)
-	router.GET("/users/:id", controllers.GetUser)
-	router.PUT("/users/:id", middleware.RequireAuth, controllers.UpdateUser)
-	router.DELETE("/users/:id", middleware.RequireAuth, controllers.DeleteUser)
-
-	// Topics
-	router.POST("/topics", middleware.RequireAuth, controllers.CreateTopic)
-	router.GET("/topics", controllers.GetTopics)
-	router.GET("/topics/:id", controllers.GetTopic)
-	router.PUT("/topics/:id", middleware.RequireAuth, controllers.UpdateTopic)
-	router.DELETE("/topics/:id", middleware.RequireAuth, controllers.DeleteTopic)
-
-	router.Run()
+	if err != nil {
+		log.Fatal().Msg("Server cannot start serve the Blog API")
+	}
 }

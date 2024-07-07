@@ -1,0 +1,34 @@
+basePath: /
+host: localhost:3000
+info:
+  contact: {}
+  description: A Blog Service API in Go using Gin framework
+  title: Blog Service API
+  version: "1.0"
+paths:
+  /heathcheck:
+    get:
+      description: Get healthcheck info
+      produces:
+      - application/json
+      responses: {}
+      summary: Get healthcheck info
+      tags:
+      - info
+  /info:
+    get:
+      description: Get Information about service
+      produces:
+      - application/json
+      responses: {}
+      summary: Get Information about service
+      tags:
+      - info
+schemes:
+- http
+securityDefinitions:
+  JWT:
+    in: header
+    name: token
+    type: apiKey
+swagger: "2.0"

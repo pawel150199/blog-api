@@ -18,6 +18,7 @@ go.work
 
 ### macOS ###
 # General
+.secrets.txt
 .DS_Store
 .AppleDouble
 .LSOverride
