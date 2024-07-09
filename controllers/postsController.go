@@ -7,6 +7,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// CreatePost godoc
+// @Summary                    Create Post
+// @Description                Add a new Post
+// @Tags                       posts
+// @Accept                     json
+// @Produce                    json
+// @Param                      post body     models.Post true "Post Data"
+// @Success                    200  {object} models.Post
+// @Router                     /posts [post]
 func CreatePost(c *gin.Context) {
 	// Get data off req body
 	var body struct {
@@ -37,6 +46,12 @@ func CreatePost(c *gin.Context) {
 	})
 }
 
+// GetPosts godoc
+// @Summary                 Get all Posts
+// @Description             Get all Posts
+// @Tags                    posts
+// @Produce                 json
+// @Router                  /posts [get]
 func GetPosts(c *gin.Context) {
 	// Get the posts
 	var posts []models.Post
@@ -48,6 +63,14 @@ func GetPosts(c *gin.Context) {
 	})
 }
 
+// GetPostByID godoc
+// @Summary                    Get Post by ID
+// @Description                Get a Post by ID
+// @Tags                       posts
+// @Produce                    json
+// @Param                      id path string true "Post ID"
+// @Success      200  {object}  models.Post
+// @Router                     /post/{id} [get]
 func GetPost(c *gin.Context) {
 	// Get id
 	id := c.Param("id")
@@ -62,6 +85,14 @@ func GetPost(c *gin.Context) {
 	})
 }
 
+// UpdatePostByID godoc
+// @Summary                    Update Post
+// @Description                Update Post by ID
+// @Tags                       posts
+// @Produce                    json
+// @Param                      id path string      true "Post ID"
+// @Param                      Post   body models.Post true "Post Data"
+// @Router                     /posts/{id} [patch]
 func UpdatePost(c *gin.Context) {
 	// Get id
 	id := c.Param("id")
@@ -93,9 +124,15 @@ func UpdatePost(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"post": post,
 	})
-
 }
 
+// DeletePostByID godoc
+// @Summary                    Delete Post
+// @Description                Delete Post by ID
+// @Tags                       posts
+// @Produce                    json
+// @Param                      id path string true "Post ID"
+// @Router                     /posts/{id} [delete]
 func DeletePost(c *gin.Context) {
 	// Get id
 	id := c.Param("id")

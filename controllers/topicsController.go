@@ -7,6 +7,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// CreateTopic godoc
+// @Summary                    Create Topic
+// @Description                Add a new Topic
+// @Tags                       topics
+// @Accept                     json
+// @Produce                    json
+// @Param                      user body     models.Topic true "Topic Data"
+// @Success                    200  {object} models.Topic
+// @Router                     /topics [post]
 func CreateTopic(c *gin.Context) {
 	// Get data off req body
 	var body struct {
@@ -40,6 +49,12 @@ func CreateTopic(c *gin.Context) {
 	})
 }
 
+// GetTopics godoc
+// @Summary                 Get all Topics
+// @Description             Get all Topics
+// @Tags                    topics
+// @Produce                 json
+// @Router                  /topics [get]
 func GetTopics(c *gin.Context) {
 	// Get the topics
 	var topics []models.Topic
@@ -51,6 +66,14 @@ func GetTopics(c *gin.Context) {
 	})
 }
 
+// GetTopicByID godoc
+// @Summary                    Get Topic
+// @Description                Get a Topic by ID
+// @Tags                       topics
+// @Produce                    json
+// @Param                      id path string true "Topic ID"
+// @Success      200  {object}  models.Topic
+// @Router                     /topics/{id} [get]
 func GetTopic(c *gin.Context) {
 	// Get id
 	id := c.Param("id")
@@ -65,6 +88,14 @@ func GetTopic(c *gin.Context) {
 	})
 }
 
+// UpdateTopicByID godoc
+// @Summary                    Update Topic
+// @Description                Update Topic by ID
+// @Tags                       topics
+// @Produce                    json
+// @Param                      id path string      true "Topic ID"
+// @Param                      Topic   body models.Topic true "Topic Data"
+// @Router                     /topics/{id} [patch]
 func UpdateTopic(c *gin.Context) {
 	// Get id
 	id := c.Param("id")
@@ -98,6 +129,13 @@ func UpdateTopic(c *gin.Context) {
 	})
 }
 
+// DeleteTopicByID godoc
+// @Summary                    Delete Topic
+// @Description                Delete Topic by ID
+// @Tags                       topics
+// @Produce                    json
+// @Param                      id path string true "Topic ID"
+// @Router                     /topics/{id} [delete]
 func DeleteTopic(c *gin.Context) {
 	// Get id
 	id := c.Param("id")

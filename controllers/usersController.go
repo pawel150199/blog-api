@@ -12,6 +12,13 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
+// GetLoggedUser godoc
+// @Summary                    Get logged User
+// @Description                Get a logged User
+// @Tags                       users
+// @Produce                    json
+// @Success      200  {object}  models.User
+// @Router                     /me [get]
 func GetMe(c *gin.Context) {
 	user, _ := c.Get("user")
 	c.JSON(200, gin.H{
@@ -77,6 +84,15 @@ func Login(c *gin.Context) {
 
 }
 
+// CreateUser godoc
+// @Summary                    Create User
+// @Description                Add a new User
+// @Tags                       users
+// @Accept                     json
+// @Produce                    json
+// @Param                      user body     models.User true "User Data"
+// @Success                    200  {object} models.User
+// @Router                     /users [post]
 func CreateUser(c *gin.Context) {
 	// Get the email and password off req body
 	var body struct {
@@ -119,7 +135,12 @@ func CreateUser(c *gin.Context) {
 
 }
 
-// Return all users
+// GetUsers godoc
+// @Summary                 Get all Users
+// @Description             Get all Users
+// @Tags                    users
+// @Produce                 json
+// @Router                  /users [get]
 func GetUsers(c *gin.Context) {
 	// Get the users
 	var users []models.User
@@ -131,6 +152,14 @@ func GetUsers(c *gin.Context) {
 	})
 }
 
+// GetUserByID godoc
+// @Summary                    Get User
+// @Description                Get a User by ID
+// @Tags                       users
+// @Produce                    json
+// @Param                      id path string true "User ID"
+// @Success      200  {object}  models.User
+// @Router                     /users/{id} [get]
 func GetUser(c *gin.Context) {
 	// Get id
 	id := c.Param("id")
@@ -146,6 +175,14 @@ func GetUser(c *gin.Context) {
 
 }
 
+// UpdateUserByID godoc
+// @Summary                    Update User
+// @Description                Update User by ID
+// @Tags                       users
+// @Produce                    json
+// @Param                      id path string      true "User ID"
+// @Param                      User   body models.User true "User Data"
+// @Router                     /users/{id} [patch]
 func UpdateUser(c *gin.Context) {
 	// Get id
 	id := c.Param("id")
@@ -183,6 +220,13 @@ func UpdateUser(c *gin.Context) {
 	})
 }
 
+// DeleteUserByID godoc
+// @Summary                    Delete User
+// @Description                Delete User by ID
+// @Tags                       users
+// @Produce                    json
+// @Param                      id path string true "User ID"
+// @Router                     /users/{id} [delete]
 func DeleteUser(c *gin.Context) {
 	// Get id
 	id := c.Param("id")

@@ -1,4 +1,74 @@
 basePath: /
+definitions:
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  models.Post:
+    properties:
+      body:
+        type: string
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      title:
+        type: string
+      topicID:
+        type: integer
+      updatedAt:
+        type: string
+      userID:
+        type: integer
+    type: object
+  models.Topic:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      name:
+        type: string
+      owner:
+        type: string
+      posts:
+        items:
+          $ref: '#/definitions/models.Post'
+        type: array
+      updatedAt:
+        type: string
+    type: object
+  models.User:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      email:
+        type: string
+      firstname:
+        type: string
+      id:
+        type: integer
+      lastname:
+        type: string
+      password:
+        type: string
+      posts:
+        items:
+          $ref: '#/definitions/models.Post'
+        type: array
+      updatedAt:
+        type: string
+    type: object
 host: localhost:3000
 info:
   contact: {}
@@ -24,6 +94,269 @@ paths:
       summary: Get Information about service
       tags:
       - info
+  /me:
+    get:
+      description: Get a logged User
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      summary: Get logged User
+      tags:
+      - users
+  /post/{id}:
+    get:
+      description: Get a Post by ID
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+      summary: Get Post by ID
+      tags:
+      - posts
+  /posts:
+    get:
+      description: Get all Posts
+      produces:
+      - application/json
+      responses: {}
+      summary: Get all Posts
+      tags:
+      - posts
+    post:
+      consumes:
+      - application/json
+      description: Add a new Post
+      parameters:
+      - description: Post Data
+        in: body
+        name: post
+        required: true
+        schema:
+          $ref: '#/definitions/models.Post'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+      summary: Create Post
+      tags:
+      - posts
+  /posts/{id}:
+    delete:
+      description: Delete Post by ID
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete Post
+      tags:
+      - posts
+    patch:
+      description: Update Post by ID
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Post Data
+        in: body
+        name: Post
+        required: true
+        schema:
+          $ref: '#/definitions/models.Post'
+      produces:
+      - application/json
+      responses: {}
+      summary: Update Post
+      tags:
+      - posts
+  /topics:
+    get:
+      description: Get all Topics
+      produces:
+      - application/json
+      responses: {}
+      summary: Get all Topics
+      tags:
+      - topics
+    post:
+      consumes:
+      - application/json
+      description: Add a new Topic
+      parameters:
+      - description: Topic Data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.Topic'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Topic'
+      summary: Create Topic
+      tags:
+      - topics
+  /topics/{id}:
+    delete:
+      description: Delete Topic by ID
+      parameters:
+      - description: Topic ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete Topic
+      tags:
+      - topics
+    get:
+      description: Get a Topic by ID
+      parameters:
+      - description: Topic ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Topic'
+      summary: Get Topic
+      tags:
+      - topics
+    patch:
+      description: Update Topic by ID
+      parameters:
+      - description: Topic ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Topic Data
+        in: body
+        name: Topic
+        required: true
+        schema:
+          $ref: '#/definitions/models.Topic'
+      produces:
+      - application/json
+      responses: {}
+      summary: Update Topic
+      tags:
+      - topics
+  /users:
+    get:
+      description: Get all Users
+      produces:
+      - application/json
+      responses: {}
+      summary: Get all Users
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: Add a new User
+      parameters:
+      - description: User Data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      summary: Create User
+      tags:
+      - users
+  /users/{id}:
+    delete:
+      description: Delete User by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete User
+      tags:
+      - users
+    get:
+      description: Get a User by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      summary: Get User
+      tags:
+      - users
+    patch:
+      description: Update User by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: User Data
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses: {}
+      summary: Update User
+      tags:
+      - users
 schemes:
 - http
 securityDefinitions:
