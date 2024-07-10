@@ -27,6 +27,17 @@ jobs:
         with:
           go-version: 1.22.x
       
+    - name: Install dependencies
+      run: |
+        go mod tidy
+        go mod vendor
+
+    - name: Clear Go build cache
+      run: go clean -cache -modcache -i -r
+
+    - name: Build the project
+      run: go build ./...
+      
       - name: Lint
         uses: golangci/golangci-lint-action@3cfe3a4abbb849e10058ce4af15d205b6da42804 # v4.0.0
         with:
