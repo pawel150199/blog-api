@@ -1,8 +1,8 @@
 package main
 
 import (
-	"example/blog/main/initializers"
-	"example/blog/main/models"
+	"example/blog/initializers"
+	"example/blog/models"
 )
 
 func init() {
