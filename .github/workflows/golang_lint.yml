@@ -42,10 +42,3 @@ jobs:
         uses: golangci/golangci-lint-action@3cfe3a4abbb849e10058ce4af15d205b6da42804 # v4.0.0
         with:
           version: v1.56.2
-          args: --out-format=github-actions,v=0 --out-file=golangci-lint-report.json
-      
-      - name: Upload golang-lint report
-        uses: actions/upload-artifact@v3
-        with:
-          name: golangci-lint-report
-          path: golangci-lint-report.json
